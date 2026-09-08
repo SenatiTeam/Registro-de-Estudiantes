@@ -1,9 +1,12 @@
 package com.example.students.db
 
 import android.content.Context
+import android.util.Log
 import com.example.students.model.Alumno
 import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
+import java.io.OutputStream
 
 /*Paso 1: Conexión y Lectura de Datos de la Base de Datos SQLite*/
 
@@ -17,6 +20,17 @@ class Config(private val context: Context) {
         /*Copia de seguridad / inicializacion de los archivos de la DB desde assets*/
         try {
             val inputStream: InputStream = context.assets.open(dbName)
+            val outputStream: OutputStream = FileOutputStream(dbFile)
+            val buffer = ByteArray(1024)
+            var length: Int
+            while (inputStream.read(buffer).also { length = it } > 0){
+                outputStream.write(buffer, 0, length)
+            }
+            outputStream.flush()
+            outputStream.close()
+            inputStream.close()
+        }catch (e: Exception){
+            Log.e("PRUEBA_SQLite", "Error al copiar DB: ${e.message}")
         }
     }
 
