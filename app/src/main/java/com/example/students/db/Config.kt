@@ -1,12 +1,15 @@
 package com.example.students.db
 
 import android.content.Context
+import android.database.sqlite.SQLiteDatabase
+import android.database.sqlite.SQLiteQuery
 import android.util.Log
 import com.example.students.model.Alumno
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
+import java.sql.SQLXML
 
 /*Paso 1: Conexión y Lectura de Datos de la Base de Datos SQLite*/
 
@@ -31,6 +34,14 @@ class Config(private val context: Context) {
             inputStream.close()
         }catch (e: Exception){
             Log.e("PRUEBA_SQLite", "Error al copiar DB: ${e.message}")
+        }
+        /*1.2 Apertura de la conexion SQLite y ejecucion de la consutla*/
+        try {
+            val db = SQLiteDatabase.openDatabase(
+                dbFile.absolutePath, null, SQLiteDatabase.OPEN_READONLY
+            )
+            val cursor = db.rawQuery("SELECT codigo, nombre, apellido, telefono FROM alumns", null)
+            Log.d("PRUEBA_SQLite", "Datos Encontrados de alumnos: ${cursor.count}")
         }
     }
 
