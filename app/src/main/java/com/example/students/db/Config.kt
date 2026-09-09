@@ -10,6 +10,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.sql.SQLXML
+import kotlin.math.log
 
 /*Paso 1: Conexión y Lectura de Datos de la Base de Datos SQLite*/
 
@@ -42,7 +43,24 @@ class Config(private val context: Context) {
             )
             val cursor = db.rawQuery("SELECT codigo, nombre, apellido, telefono FROM alumns", null)
             Log.d("PRUEBA_SQLite", "Datos Encontrados de alumnos: ${cursor.count}")
+            if(cursor.moveToFirst()){
+                do {
+                    val codigo = cursor.getString(cursor.getColumnIndexOrThrow("codigo"))
+                    val nombre = cursor.getString(cursor.getColumnIndexOrThrow("nombre"))
+                    val apellido = cursor.getString(cursor.getColumnIndexOrThrow("apellido"))
+                    val telefono = cursor.getString(cursor.getColumnIndexOrThrow("telefono"))
+
+                    listaAlumnos.add(Alumno(codigo, nombre, apellido, telefono))
+                    Log.d("PRUEBA_SQLite","Leído: $codigo - $nombre $apellido")
+                }while (cursor.moveToNext())
+            }
+            cursor.close()
+            db.close()
+            Log.d("PRUEBA_SQLite","!Conexión exitosa, Total de registros: ${listaAlumnos.size}")
+        }catch (e: Exception){
+            Log.e("PRUEBA_SQLite","Error al conectar la BD: ${e.message}")
         }
+        return listaAlumnos
     }
 
 }
