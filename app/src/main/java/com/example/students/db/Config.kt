@@ -15,7 +15,7 @@ import kotlin.math.log
 /*Paso 1: Conexión y Lectura de Datos de la Base de Datos SQLite*/
 
 class Config(private val context: Context) {
-    private val dbName = "alumns.sql"
+    private val dbName = "alumns.db"
 
     /*Extraer la lista de alumnos desde SQLite*/
     fun obtenerAlumnos(): List<Alumno> {
