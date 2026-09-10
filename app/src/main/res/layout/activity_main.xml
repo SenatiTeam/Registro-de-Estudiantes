@@ -65,16 +65,22 @@
     </com.google.android.material.card.MaterialCardView>
 
     <!--Muestra visualmente los item de los alumnos-->
-    <ScrollView
+<!--    <ScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="vertical">-->
+<!--            <include layout="@layout/item_alumno"/>-->
+<!--            <include layout="@layout/item_alumno"/>-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewAlumnos"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <include layout="@layout/item_alumno"/>
-            <include layout="@layout/item_alumno"/>
-        </LinearLayout>
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:padding="8dp"/>
 
 </LinearLayout>
