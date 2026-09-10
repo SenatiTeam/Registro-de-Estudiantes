@@ -9,7 +9,7 @@ import com.example.students.R
 import com.example.students.model.Alumno
 
 /*Adpator de RecyclerView*/
-class AlumnoAdapter(private var alumno: Alumno) :
+class AlumnoAdapter(private var alumnos: List<Alumno>) :
     RecyclerView.Adapter<AlumnoAdapter.AlumnoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int): AlumnoViewHolder {
@@ -18,15 +18,17 @@ class AlumnoAdapter(private var alumno: Alumno) :
         return AlumnoViewHolder(view)
     }
 
-    override fun onBindViewHolder(
-        holder: AlumnoViewHolder,
-        position: Int
-    ) {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: AlumnoViewHolder,position: Int) {
+        val alumno = alumnos[position]
+        holder.tvNombreCompleto.text = "${alumno.nombre} ${alumno.apellido}"
+        holder.tcCodigo.text = "${alumno.codigo}"
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    override fun getItemCount(): Int = alumnos.size
+
+    fun updateData(newAlumnos: List<Alumno>){
+        this.alumnos = newAlumnos
+        notifyDataSetChanged()
     }
 
     /*Paso 1: Clase ViewHolder*/
